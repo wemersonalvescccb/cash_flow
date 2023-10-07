@@ -1,0 +1,212 @@
+{% include 'inicio.html' %}
+{% load custom_filters %}
+
+
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                MÊS FILTRADO</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ mes }} {{ ano }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                DIA TRABALHO</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ dia_trabalho }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                HORA TRABALHO</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ hora_trabalho }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                RENDA TOTAL</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ renda_total }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                DESPESAS TOTAL</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ total_despesas }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                DIA DO PAGAMENTO</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ diferenca }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid mt-4">
+    <div class="row">
+
+        <!-- Linhas que carregam -->
+        <div class="col-lg-6 mb-4">
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    
+                    <h4 class="small font-weight-bold">DESPESAS X RENDA MENSAL<span
+                        class="float-right">{{porcentagem_renda_int}}%</span></h4>
+                    {% if total_despesas > 0 %}
+                        <div class="progress" role="progressbar" aria-label="Progresso da Renda" aria-valuenow="{{ porcentagem_renda_int }}" aria-valuemin="0" aria-valuemax="100">
+                            {% if porcentagem_renda_int >= 80 %}
+                                <div class="progress-bar bg-danger" style="width: {{ porcentagem_renda_int }}%;">R$ {{ total_despesas }}</div>
+                            {% elif porcentagem_renda_int >= 70 %}
+                                <div class="progress-bar bg-warning" style="width: {{ porcentagem_renda_int }}%;">R$ {{ total_despesas }}</div>
+                            {% else %}
+                                <div class="progress-bar" style="width: {{ porcentagem_renda_int }}%;">R$ {{ total_despesas }}</div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="mt-4">Sem despesas para comparar faça o filtro do Mês e Ano acima!</p>
+                        <div class="progress" role="progressbar" aria-label="Progresso da Renda" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar" style="width: 20%;">Carregando...</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card alert-success mt-4">
+                <div class="card-body text-center">
+                    <h4 class="small font-weight-bold">RENDA PASSIVA<span
+                        class="float-right">{{porcentagem_renda_passiva_int}}%</span></h4>
+                    {% if total_despesas > 0 %}
+                        <div class="progress" role="progressbar" aria-label="Progresso da Renda" aria-valuenow="{{ porcentagem_renda_passiva_int }}" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar" style="width: {{ porcentagem_renda_passiva_int }}%;">R$ {{ soma_renda_passiva }}</div>
+                        </div>
+                    {% else %}
+                        <p class="mt-4">Sem despesas para comparar faça o filtro do Mês e Ano acima!</p>
+                        <div class="progress" role="progressbar" aria-label="Progresso da Renda" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar" style="width: 20%;">Carregando...</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <!--ATIVOS-->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                ATIVOS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ total_ativos }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--PASSIVOS-->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                               PASSIVOS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ total_passivos }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="border border-primary border-3 opacity-75">
+
